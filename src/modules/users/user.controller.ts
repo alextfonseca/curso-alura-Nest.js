@@ -4,24 +4,17 @@ import {
   Delete,
   Get,
   Param,
-  Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto } from './dtos/createUser.dto';
-
+import { AuthGuard } from '@nestjs/passport';
 import { UserService } from 'src/modules/users/user.service';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 
 @Controller('/users')
+@UseGuards(AuthGuard('jwt')) // obriga a passar o access token no header da requisição para acessar os métodos
 export class UserController {
   constructor(private userService: UserService) {}
-
-  @Post()
-  async createUser(@Body() userData: CreateUserDto) {
-    // DTO (CreateUserDto) faz a validação dos dados
-
-    return await this.userService.createUser(userData);
-  }
 
   @Get('/:id')
   async getUserById(@Param('id') id: string) {
