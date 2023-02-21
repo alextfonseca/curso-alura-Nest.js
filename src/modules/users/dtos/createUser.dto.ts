@@ -1,5 +1,4 @@
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
-import { UserEmailValidatorProvider } from '../validator/userEmail.validator';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -8,7 +7,6 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsEmail()
-  @UserEmailValidatorProvider({ message: 'Email already exists' })
   email: string;
 
   @IsNotEmpty()
